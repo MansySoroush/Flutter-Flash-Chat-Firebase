@@ -2,18 +2,25 @@ name: flash_chat
 description: "Flutter Mobile App Project - Flash Chat"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
+
 environment:
   sdk: ^3.5.2
+
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^1.0.8
   animated_text_kit: ^4.2.2
+  firebase_core: ^3.4.1
+  firebase_auth: ^5.2.1
+  cloud_firestore: ^5.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+
 flutter:
   uses-material-design: true
   assets:
