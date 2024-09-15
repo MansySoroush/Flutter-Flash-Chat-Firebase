@@ -21,20 +21,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController _passwordFieldController =
       TextEditingController();
 
+  final FocusNode _emailTextFieldFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
 
-    _emailFieldController.text = "";
-    _passwordFieldController.text = "";
+    _emailFieldController.clear();
+    _passwordFieldController.clear();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setFocusToEmailTextField();
+    });
   }
 
   @override
   void dispose() {
     _emailFieldController.dispose();
     _passwordFieldController.dispose();
+    _emailTextFieldFocusNode.dispose();
 
     super.dispose();
+  }
+
+  void _setFocusToEmailTextField() {
+    FocusScope.of(context).requestFocus(_emailTextFieldFocusNode);
   }
 
   @override
@@ -60,6 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
+              focusNode: _emailTextFieldFocusNode,
               controller: _emailFieldController,
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
@@ -105,8 +117,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     if (context.mounted) {
                       setState(() {
                         showSpinner = false;
-                        _emailFieldController.text = "";
-                        _passwordFieldController.text = "";
+                        _emailFieldController.clear();
+                        _passwordFieldController.clear();
+                        _setFocusToEmailTextField();
                       });
                       Navigator.pushNamed(context, ChatScreen.id);
                     }
